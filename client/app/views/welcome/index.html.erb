@@ -1,0 +1,47 @@
+<script id= "render-index-page" type="x-handebars-template">
+  <div class="overlay"></div>
+  <h1>Welcome</h1>
+  <form id="create-question-form" action="/questions" method="post">
+    <input id="question-title" type="text" name="title" placeholder="title"><br/>
+    <textarea id="question-content" name="content" placeholder="title"></textarea><br/>
+    <input id="create-question-button" type="submit" value="Create">
+  </form>
+
+  <h3>List of all questions</h3>
+  <div class="question-container">
+    {{#each questions}}
+      <ul data-question-id={{id}}>
+        <li>Title: {{title}}</li>
+        <li>Content: {{content}}</li>
+        <li class="show-votes">Upvotes: <span class="upvote-count">{{upvotes}}</span> || Downvotes: <span class="downvote-count">{{downvotes}}</span></li>
+        <li><a class="question-vote" href="http://localhost:3001/questions/{{id}}/upvotes">[Upvote]</a> | <a class="question-vote" href="http://localhost:3001/questions/{{id}}/downvotes">[Downvote]</a></li>
+        <li><span id="edit-button">[Edit]</span> || <span id="delete-button">[Delete]</span></li>
+      </ul>
+    {{/each}}
+  </div>
+</script>
+
+<script id= "render-new-question" type="x-handebars-template">
+  {{#question}}
+    <ul data-question-id={{id}}>
+      <li>Title: {{title}}</li>
+      <li>Content: {{content}}</li>
+      <li>Upvotes: {{upvotes}} || Downvotes: {{downvotes}}</li>
+      <li><a href="http://localhost:3001/questions/{{id}}/upvotes">[Upvote]</a> | <a href="http://localhost:3001/questions/{{id}}/downvotes">[Downvote]</a></li>
+      <li><span id="edit-button">[Edit]</span> || <span id="delete-button">[Delete]</span></li>
+    </ul>
+  {{/question}}
+</script>
+
+
+<script id= "render-edit-page" type="x-handebars-template">
+  <div class="edit">
+  {{#question}}
+  <form action="/questions" method="post">
+    <input type="text" name="title" value="{{title}}"><br/>
+    <textarea name="content" value="{{content}}"></textarea><br/>
+    <input type="submit" value="Update">
+  </form>
+  </div>
+  {{/question}}
+</script>
