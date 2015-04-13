@@ -54,7 +54,7 @@
         <li>Content: {{content}}</li>
         <li class="show-votes">Upvotes: <span class="upvote-count">{{upvotes}}</span> || Downvotes: <span class="downvote-count">{{downvotes}}</span></li>
         <li><a class="question-vote" href="http://localhost:3001/questions/{{id}}/upvotes">[Upvote]</a> | <a class="question-vote" href="http://localhost:3001/questions/{{id}}/downvotes">[Downvote]</a></li>
-        <li><a href="#" class="edit-button">[Edit]</a> || <a href="/questions/{{id}}/answers" class="delete-button">[Delete]</a></li>
+        <li><a href="#" class="edit-button">[Edit]</a> || <a href="http://localhost:3001/questions/{{id}}" class="delete-button">[Delete]</a></li>
       </ul>
     {{/each}}
   </div>
@@ -71,7 +71,7 @@
       <li>Content: {{content}}</li>
       <li>Upvotes: {{upvotes}} || Downvotes: {{downvotes}}</li>
       <li><a href="http://localhost:3001/questions/{{id}}/upvotes">[Upvote]</a> | <a href="http://localhost:3001/questions/{{id}}/downvotes">[Downvote]</a></li>
-      <li><span id="edit-button">[Edit]</span> || <span id="delete-button">[Delete]</span></li>
+      <li><a href="#" class="edit-button">[Edit]</a> || <a href="http://localhost:3001/questions/{{id}}" class="delete-button">[Delete]</a></li>
     </ul>
   {{/question}}
 </script>
@@ -86,7 +86,7 @@
       <li>Content: {{content}}</li>
       <li>Upvotes: {{upvotes}} || Downvotes: {{downvotes}}</li>
       <li><a href="http://localhost:3001/questions/{{id}}/answers/{{id}}/upvotes">[Upvote]</a> | <a href="http://localhost:3001/questions/{{id}}/answers/{{id}}/downvotes">[Downvote]</a></li>
-      <li><span id="edit-button">[Edit]</span> || <span id="delete-button">[Delete]</span></li>
+      <li><span class="edit-button">[Edit]</span> || <span class="delete-button">[Delete]</span></li>
     </ul>
   {{/answer}}
 </script>
@@ -95,7 +95,7 @@
 
 
 <script id= "render-edit-page" type="x-handebars-template">
-  <div class="edit">
+  <div class="edit-page">
   {{#question}}
   <form action="/questions" method="post">
     <input type="text" name="title" value="{{title}}"><br/>

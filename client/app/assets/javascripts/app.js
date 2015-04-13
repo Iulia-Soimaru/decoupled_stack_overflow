@@ -78,14 +78,13 @@ $(document).on('page:change', function(){
   ///// DELETE QUESTION \\\\\
   $('body').on('click', '.delete-button', function(evt){
     evt.preventDefault();
-    console.log($(this))
 
     $.ajax({
-      url: 'http://localhost:3001' + $(this).attr('href'),
+      url: $(this).attr('href'),
       type: "DELETE",
-      data: {'_method': "delete"}
     }).done(function(response){
-      console.log('success');
+      $($('ul')[0]).remove();
+      // $($(this)[0]).remove();
     }).fail(function(){
       alert('FAILS')
     })
@@ -118,6 +117,19 @@ $(document).on('page:change', function(){
         return false;
     });
 
+  ///// RENDER EDIT QUESTION PAGE \\\\\
+  $('body').on('click', '.edit-button', function(evt){
+    evt.preventDefault();
+
+    $('.overlay').fadeIn('2000', function(){});
+    var source = $('#render-edit-page').html();
+    var templatingFunction = Handlebars.compile(source);
+
+    $.ajax({
+      url:
+    })
+
+  })
 
 
 
