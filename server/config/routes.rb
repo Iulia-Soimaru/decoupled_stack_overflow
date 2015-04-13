@@ -13,6 +13,8 @@ Rails.application.routes.draw do
 
 
   match '/questions/:id' => 'questions#render_204', via: [:options]
+  get '/questions/:id/edit' => "questions#edit"
+  # match '/questions/:id/update' => 'questions#render_204', via: [:options]
 
   # match '*' => 'questions#render_204', via: [:options]
   # You can have the root of your site routed with "root"

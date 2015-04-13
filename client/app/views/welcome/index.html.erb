@@ -1,5 +1,6 @@
 <div class="background"></div>
 <div class="overlay"></div>
+<div class="notification"></div>
 
 <!-- QUESTION PAGE -->
 <script id="render-question-page" type="x-handebars-template">
@@ -51,10 +52,10 @@
     {{#each questions}}
       <ul data-question-id={{id}}>
         <li>Title: <a class="specific-question" href="http://localhost:3001/questions/{{id}}">{{title}}</a></li>
-        <li>Content: {{content}}</li>
+        <li>Content: <span class="span-content">{{content}}</span></li>
         <li class="show-votes">Upvotes: <span class="upvote-count">{{upvotes}}</span> || Downvotes: <span class="downvote-count">{{downvotes}}</span></li>
         <li><a class="question-vote" href="http://localhost:3001/questions/{{id}}/upvotes">[Upvote]</a> | <a class="question-vote" href="http://localhost:3001/questions/{{id}}/downvotes">[Downvote]</a></li>
-        <li><a href="#" class="edit-button">[Edit]</a> || <a href="http://localhost:3001/questions/{{id}}" class="delete-button">[Delete]</a></li>
+        <li><a href="/questions/{{id}}/edit" class="edit-button">[Edit]</a> || <a href="http://localhost:3001/questions/{{id}}" class="delete-button">[Delete]</a></li>
       </ul>
     {{/each}}
   </div>
@@ -71,7 +72,7 @@
       <li>Content: {{content}}</li>
       <li>Upvotes: {{upvotes}} || Downvotes: {{downvotes}}</li>
       <li><a href="http://localhost:3001/questions/{{id}}/upvotes">[Upvote]</a> | <a href="http://localhost:3001/questions/{{id}}/downvotes">[Downvote]</a></li>
-      <li><a href="#" class="edit-button">[Edit]</a> || <a href="http://localhost:3001/questions/{{id}}" class="delete-button">[Delete]</a></li>
+      <li><a href="/questions/{{id}}/edit" class="edit-button">[Edit]</a> || <a href="http://localhost:3001/questions/{{id}}" class="delete-button">[Delete]</a></li>
     </ul>
   {{/question}}
 </script>
@@ -96,14 +97,14 @@
 
 <script id= "render-edit-page" type="x-handebars-template">
   <div class="edit-page">
-  {{#question}}
-  <form action="/questions" method="post">
-    <input type="text" name="title" value="{{title}}"><br/>
-    <textarea name="content" value="{{content}}"></textarea><br/>
-    <input type="submit" value="Update">
-  </form>
+    {{#question}}
+      <form action="/questions/{{id}}/edit" method="put">
+        <input type="text" name="title" value="{{title}}"><br/>
+        <textarea name="content" value="{{content}}"></textarea><br/>
+        <input type="submit" value="Update">
+      </form>
+    {{/question}}
   </div>
-  {{/question}}
 </script>
 
 

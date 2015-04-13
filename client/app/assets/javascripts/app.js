@@ -36,7 +36,11 @@ $(document).on('page:change', function(){
       $('.question-container').append(templatingFunction(context));
       $('#question-title').val('');
       $('#question-content').val('');
-      alert('Your question was succesfully created')
+      $('.notification').text('Your question was succesfully created');
+      $('.notification').fadeIn('2000', function(){});
+      setTimeout(function() {
+        $('.notification').fadeOut(1000);
+      }, 1000);
     }).fail(function(){
       alert('Request failed, please try again')
     })
@@ -83,11 +87,17 @@ $(document).on('page:change', function(){
       url: $(this).attr('href'),
       type: "DELETE",
     }).done(function(response){
-      $($('ul')[0]).remove();
       // $($(this)[0]).remove();
+      console.log($($('ul').ul));
+      // $($('ul')[0]).remove();
     }).fail(function(){
       alert('FAILS')
     })
+      // $('.notification').text('Your question was succesfully deleted');
+      // $('.notification').fadeIn('2000', function(){});
+      // setTimeout(function() {
+      //   $('.notification').fadeOut(1000);
+      // }, 1000);
   })
 
 
@@ -122,11 +132,28 @@ $(document).on('page:change', function(){
     evt.preventDefault();
 
     $('.overlay').fadeIn('2000', function(){});
+
+    var link = 'http://localhost.3001' + $(this).attr('href');
+    var that = $(this).parent().parent();
+    var title = $(that).find('.specific-question').text();
+    var content = $(that).find('.span-content').text();
+    console.log(link);
+
+    var context = {};
     var source = $('#render-edit-page').html();
     var templatingFunction = Handlebars.compile(source);
-
+    // debugger
     $.ajax({
-      url:
+      url: link,
+      type: "GET",
+      dataType: 'JSON',
+      data: {title: title, content: content}
+    }).done(function(response){
+      console.log(response)
+      context.answer = response
+      $('body').append(templatingFunction(context));
+    }).fail(function(){
+      alert('FAILS')
     })
 
   })

@@ -18,20 +18,27 @@ class QuestionsController < ApplicationController
     end
   end
 
+
   def update
     @question = Question.find(params[:id])
     @question.update(find_params)
     if @question.save
-      render json: {question: @question}, status: :accepted
+      render json: @question, status: :accepted
     else
       render json: @question.errors.full_messages, status: :unprocessable_entity
     end
+  end
+
+  def edit
+    @question = Question.find(params[:id])
+    render json: @question, status: :accepted
   end
 
   def show
     @question = Question.find(params[:id])
     render json: @question, status: :accepted
   end
+
 
   def destroy
     @question = Question.find(params[:id])
