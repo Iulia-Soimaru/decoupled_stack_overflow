@@ -1,0 +1,151 @@
+$none: none;
+$no-margin: 0;
+$cream_background: #F0E6D9;
+$border: 1px solid black;
+
+@mixin text-align{
+  text-align: center;
+}
+
+@mixin vertical-align {
+  position: relative;
+  top: 10%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(10%);
+}
+@mixin form_padding{
+  padding: 10px;
+}
+@mixin no_border{
+  border: none;
+}
+@mixin form_back_color{
+  background: $cream_background;
+  border: none;
+}
+@mixin one_hundred{
+  width: 100%;
+  height: 100%;
+}
+/*******************  CSS STYLING *******************************/
+
+
+body{
+  background: $cream_background;
+  width: 100%;
+  margin: $no-margin;
+}
+h1{
+  margin: $no-margin;
+}
+.background{
+  @include text-align;
+  @include one_hundred;
+  position: absolute;
+  background: url('back-img.jpg') no-repeat;
+  background-size: cover;
+  text-align: center;
+}
+.container{
+  @include text-align;
+  @include vertical-align;
+  padding: 85px 40px;
+  background: white;
+  width: 70%;
+  height: 39em;
+  margin: auto;
+  margin-bottom: 250px;
+}
+/*******************  FORM ***********************************/
+#create-question-form #question-title{
+  @include form_padding;
+  @include form_back_color;
+  @include no_border;
+  width: 16em;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+#create-question-form #question-content{
+  @include form_padding;
+  @include form_back_color;
+  @include no_border;
+  width: 17.8em;
+  height: 10em;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+#create-question-form #create-question-button{
+  @include no_border;
+  width: 10em;
+  height: 3em;
+  background: #E0584C;
+  color: white;
+  margin-bottom: 30px;
+}
+.scroll-down{
+  text-decoration: $none;
+  color: black;
+  float: right;
+}
+/*******************  QUESTIONS  *********************************/
+.questions_list{
+  @include form_padding;
+  @include text-align;
+  border: $border;
+  width: 10em;
+}
+.questions_list{
+  margin: auto;
+}
+.question-container{
+  @include text-align;
+  li{
+    list-style: $none;
+  }
+}
+.delete-button, .edit-button{
+  cursor: pointer;
+}
+
+/*******************  OVERLAY  *********************************/
+.overlay{
+  @include one_hundred;
+  position: fixed;
+  background: rgba(0,0,0, .6);
+  text-align: center;
+  z-index: 5;
+  display: none;
+}
+.question-page{
+  width: 75%;
+  height: 80%;
+  position: fixed;
+  top: 10%;
+  left: 10%;
+  margin-top: -40px;
+  background: white;
+  z-index: 10;
+  border: 5px solid $cream_background;
+  padding: 30px;
+}
+.close{
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  padding: 10px;
+  border: 1px solid black;
+  width: 12px;
+  height: 12px;
+  cursor: pointer;
+}
+.question-left{
+  float: left;
+  width: 35%;
+}
+.answers-right{
+  width: 55%;
+  height: 100%;
+  float: right;
+  overflow-y: scroll;
+}

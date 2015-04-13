@@ -12,8 +12,13 @@ Rails.application.routes.draw do
   get 'questions/:quesion_id/answers/:id/downvotes' => 'answers#downvote'
 
 
+  match '/questions' => 'questions#render_204', via: [:options]
+  match '/questions/:id' => 'questions#render_204', via: [:options]
+
+  match '*' => 'questions#render_204', via: [:options]
   # You can have the root of your site routed with "root"
   root 'questions#index'
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

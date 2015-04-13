@@ -1,30 +1,73 @@
-<script id= "render-index-page" type="x-handebars-template">
-  <div class="overlay"></div>
-  <h1>Welcome</h1>
-  <form id="create-question-form" action="/questions" method="post">
-    <input id="question-title" type="text" name="title" placeholder="title"><br/>
-    <textarea id="question-content" name="content" placeholder="title"></textarea><br/>
-    <input id="create-question-button" type="submit" value="Create">
-  </form>
+<div class="background"></div>
+<div class="overlay"></div>
 
-  <h3>List of all questions</h3>
-  <div class="question-container">
-    {{#each questions}}
-      <ul data-question-id={{id}}>
+<!-- QUESTION PAGE -->
+<script id="render-question-page" type="x-handebars-template">
+  <div class="question-page">
+    <div class="question-left">
+      <h3>Title: {{title}}</h3>
+      <p><i>Content: {{content}}</i></p>
+      <p>Likes: {{upvotes}}</p>
+      <p>Dislikes: {{downvotes}}</p>
+
+      <form id="create-answer-form" action="/questions/{{id}}/answers" method="post">
+        <input id="answer-title" type="text" name="title" placeholder="title"><br/>
+        <textarea id="answer-content" name="content" placeholder="content of your answer"></textarea><br/>
+        <input id="create-answer-button" type="submit" value="Create"><br>
+      </form>
+    </div>
+    <div class="answers-right">
+      {{#each answers}}
+        <ul data-answer-id={{id}}>
         <li>Title: {{title}}</li>
         <li>Content: {{content}}</li>
         <li class="show-votes">Upvotes: <span class="upvote-count">{{upvotes}}</span> || Downvotes: <span class="downvote-count">{{downvotes}}</span></li>
         <li><a class="question-vote" href="http://localhost:3001/questions/{{id}}/upvotes">[Upvote]</a> | <a class="question-vote" href="http://localhost:3001/questions/{{id}}/downvotes">[Downvote]</a></li>
-        <li><span id="edit-button">[Edit]</span> || <span id="delete-button">[Delete]</span></li>
+        <li><a href="#" id="edit-button">[Edit]</a> || <a href="/questions/{{id}}/answers" id="delete-button">[Delete]</a></li>
+      </ul>
+      {{/each}}
+    </div>
+    <p class="close">X</p>
+
+  </div>
+</script>
+
+<!-- MAIN PAGE -->
+
+<script id= "render-index-page" type="x-handebars-template">
+  <div class="container">
+    <h1 class="welcome">Welcome</h1>
+    <h3>Ask your question here: </h3>
+    <form id="create-question-form" action="/questions" method="post">
+      <input id="question-title" type="text" name="title" placeholder="title"><br/>
+      <textarea id="question-content" name="content" placeholder="content of your question"></textarea><br/>
+      <input id="create-question-button" type="submit" value="Create"><br>
+    </form>
+    <a class="scroll-down" href="#ql">See the questions list</a>
+  </div>
+
+  <h3 class="questions_list" name="ql">List of all questions</h3>
+  <div class="question-container">
+    {{#each questions}}
+      <ul data-question-id={{id}}>
+        <li>Title: <a class="specific-question" href="http://localhost:3001/questions/{{id}}">{{title}}</a></li>
+        <li>Content: {{content}}</li>
+        <li class="show-votes">Upvotes: <span class="upvote-count">{{upvotes}}</span> || Downvotes: <span class="downvote-count">{{downvotes}}</span></li>
+        <li><a class="question-vote" href="http://localhost:3001/questions/{{id}}/upvotes">[Upvote]</a> | <a class="question-vote" href="http://localhost:3001/questions/{{id}}/downvotes">[Downvote]</a></li>
+        <li><a href="#" class="edit-button">[Edit]</a> || <a href="/questions/{{id}}/answers" class="delete-button">[Delete]</a></li>
       </ul>
     {{/each}}
   </div>
+
 </script>
+
+
+<!-- RENDER NEW QUESTION -->
 
 <script id= "render-new-question" type="x-handebars-template">
   {{#question}}
     <ul data-question-id={{id}}>
-      <li>Title: {{title}}</li>
+      <li>Title: <a class="specific-question" href="http://localhost:3001/questions/{{id}}">{{title}}</a></li>
       <li>Content: {{content}}</li>
       <li>Upvotes: {{upvotes}} || Downvotes: {{downvotes}}</li>
       <li><a href="http://localhost:3001/questions/{{id}}/upvotes">[Upvote]</a> | <a href="http://localhost:3001/questions/{{id}}/downvotes">[Downvote]</a></li>
@@ -32,6 +75,23 @@
     </ul>
   {{/question}}
 </script>
+
+
+<!-- RENDER NEW ANSWER -->
+
+<script id= "render-new-answer" type="x-handebars-template">
+  {{#answer}}
+    <ul data-answer-id={{id}}>
+      <li>Title: {{title}}</li>
+      <li>Content: {{content}}</li>
+      <li>Upvotes: {{upvotes}} || Downvotes: {{downvotes}}</li>
+      <li><a href="http://localhost:3001/questions/{{id}}/answers/{{id}}/upvotes">[Upvote]</a> | <a href="http://localhost:3001/questions/{{id}}/answers/{{id}}/downvotes">[Downvote]</a></li>
+      <li><span id="edit-button">[Edit]</span> || <span id="delete-button">[Delete]</span></li>
+    </ul>
+  {{/answer}}
+</script>
+
+<!-- EDIT PAGE -->
 
 
 <script id= "render-edit-page" type="x-handebars-template">
@@ -45,3 +105,6 @@
   </div>
   {{/question}}
 </script>
+
+
+

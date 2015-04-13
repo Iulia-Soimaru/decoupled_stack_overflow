@@ -5,6 +5,7 @@ class QuestionsController < ApplicationController
   def index
     @questions = Question.all
     render json: @questions, status: :accepted
+
     # render json: {questions: @questions}, status: :accepted
   end
 
@@ -25,6 +26,11 @@ class QuestionsController < ApplicationController
     else
       render json: @question.errors.full_messages, status: :unprocessable_entity
     end
+  end
+
+  def show
+    @question = Question.find(params[:id])
+    render json: @question, status: :accepted
   end
 
   def destroy
@@ -50,6 +56,10 @@ class QuestionsController < ApplicationController
     else
       render json: @question.errors.full_messages, status: :unprocessable_entity
     end
+  end
+
+  def render_204
+    head 204
   end
 
   private
